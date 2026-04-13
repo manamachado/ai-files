@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elena Voss — Designer & Visual Artist</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Instrument+Serif:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        heading: ['Instrument Serif', 'serif'],
+        body: ['Manrope', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
+      },
+      colors: {
+        brand: {
+          bg: '#F5F5F5',
+          dark: '#1A1A1A',
+          muted: '#71717A',
+          light: '#A1A1AA',
+        }
+      }
+    }
+  }
+}
+</script>
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #F5F5F5;
+    color: #1A1A1A;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+
+  .font-heading { font-family: 'Instrument Serif', serif; }
+
+  /* Hero entrance */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+  .delay-4 { animation-delay: 0.55s; }
+  .delay-5 { animation-delay: 0.7s; }
+
+  /* Stagger children */
+  .stagger-in > * {
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+  }
+  .stagger-in > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger-in > *:nth-child(2) { animation-delay: 0.12s; }
+  .stagger-in > *:nth-child(3) { animation-delay: 0.19s; }
+  .stagger-in > *:nth-child(4) { animation-delay: 0.26s; }
+  .stagger-in > *:nth-child(5) { animation-delay: 0.33s; }
+  .stagger-in > *:nth-child(6) { animation-delay: 0.40s; }
+  .stagger-in > *:nth-child(7) { animation-delay: 0.47s; }
+  .stagger-in > *:nth-child(8) { animation-delay: 0.54s; }
+  .stagger-in > *:nth-child(9) { animation-delay: 0.61s; }
+
+  /* Artwork hover overlay */
+  .artwork-card .artwork-overlay {
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .artwork-card:hover .artwork-overlay {
+    opacity: 1;
+  }
+  .artwork-card .artwork-img {
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .artwork-card:hover .artwork-img {
+    transform: scale(1.04);
+  }
+
+  /* Modal */
+  .modal-backdrop {
+    transition: opacity 0.3s ease;
+  }
+  .modal-content {
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+  }
+  .modal-hidden .modal-backdrop { opacity: 0; pointer-events: none; }
+  .modal-hidden .modal-content { transform: translateY(40px); opacity: 0; }
+  .modal-visible .modal-backdrop { opacity: 1; pointer-events: auto; }
+  .modal-visible .modal-content { transform: translateY(0); opacity: 1; }
+
+  /* Timeline line animation */
+  @keyframes drawLine {
+    from { height: 0; }
+    to { height: 100%; }
+  }
+  .timeline-line {
+    animation: drawLine 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  /* Tag pill hover */
+  .tag-pill {
+    transition: all 0.3s ease;
+  }
+  .tag-pill:hover {
+    background: #1A1A1A;
+    color: #fff;
+  }
+
+  /* Nav link underline */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #1A1A1A;
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Scroll indicator */
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+  .scroll-indicator {
+    animation: scrollBounce 2s ease-in-out infinite;
+  }
+
+  /* Section fade-in on scroll */
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .section-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- NAVIGATION                              -->
+<!-- ═══════════════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" style="background: rgba(245,245,245,0.85); backdrop-filter: blur(16px);">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-between h-16 md:h-20">
+    <a href="#hero" class="font-heading text-xl md:text-2xl font-500 tracking-tight text-brand-dark">Elena Voss</a>
+    
+    <div class="hidden md:flex items-center gap-8">
+      <a href="#portfolio" class="nav-link relative text-sm font-medium tracking-wide text-brand-muted hover:text-brand-dark transition-colors">Work</a>
+      <a href="#process" class="nav-link relative text-sm font-medium tracking-wide text-brand-muted hover:text-brand-dark transition-colors">Process</a>
+      <a href="#contact" class="nav-link relative text-sm font-medium tracking-wide text-brand-muted hover:text-brand-dark transition-colors">Contact</a>
+    </div>
+
+    <button id="mobile-menu-btn" class="md:hidden p-2 text-brand-dark" aria-label="Menu">
+      <i data-lucide="menu" class="w-5 h-5"></i>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 transition-all duration-500 ease-in-out" style="background: rgba(245,245,245,0.98);">
+    <div class="px-6 py-6 flex flex-col gap-4">
+      <a href="#portfolio" class="mobile-link text-lg font-heading text-brand-dark py-2 border-b border-zinc-200">Work</a>
+      <a href="#process" class="mobile-link text-lg font-heading text-brand-dark py-2 border-b border-zinc-200">Process</a>
+      <a href="#contact" class="mobile-link text-lg font-heading text-brand-dark py-2">Contact</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- HERO SECTION                            -->
+<!-- ═══════════════════════════════════════ -->
+<section id="hero" class="min-h-screen flex items-center justify-center px-6 md:px-10 pt-20 relative overflow-hidden">
+  <!-- Subtle background grain -->
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E');"></div>
+
+  <div class="max-w-[1400px] mx-auto w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      
+      <!-- Left: Bio & Contact -->
+      <div class="lg:col-span-5 order-2 lg:order-1">
+        <div class="animate-fade-in-up delay-1">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-muted mb-4">Designer & Visual Artist</p>
+        </div>
+        
+        <h1 class="font-heading text-[44px] sm:text-[56px] lg:text-[68px] font-400 leading-[1.05] tracking-tight text-brand-dark mb-6 animate-fade-in-up delay-2">
+          Creating visual<br>
+          <span class="italic text-brand-muted">narratives</span> that<br>
+          resonate & inspire
+        </h1>
+
+        <p class="text-[15px] leading-relaxed text-brand-muted max-w-md mb-8 animate-fade-in-up delay-3">
+          Multidisciplinary designer based in Amsterdam, focused on brand identity, 
+          editorial design, and visual storytelling. I believe design should evoke feeling 
+          before it communicates function.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mb-10 animate-fade-in-up delay-4">
+          <span class="tag-pill cursor-pointer px-3 py-1.5 text-xs font-medium tracking-wide border border-zinc-300 rounded-full text-brand-dark bg-white">Brand Identity</span>
+          <span class="tag-pill cursor-pointer px-3 py-1.5 text-xs font-medium tracking-wide border border-zinc-300 rounded-full text-brand-dark bg-white">Editorial</span>
+          <span class="tag-pill cursor-pointer px-3 py-1.5 text-xs font-medium tracking-wide border border-zinc-300 rounded-full text-brand-dark bg-white">Typography</span>
+          <span class="tag-pill cursor-pointer px-3 py-1.5 text-xs font-medium tracking-wide border border-zinc-300 rounded-full text-brand-dark bg-white">Visual Art</span>
+          <span class="tag-pill cursor-pointer px-3 py-1.5 text-xs font-medium tracking-wide border border-zinc-300 rounded-full text-brand-dark bg-white">Motion</span>
+        </div>
+
+        <div class="flex items-center gap-6 animate-fade-in-up delay-5">
+          <a href="mailto:hello@elenavoss.com" class="inline-flex items-center gap-2 px-6 py-3 bg-brand-dark text-white text-sm font-medium rounded-full hover:bg-black transition-colors">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            Get in Touch
+          </a>
+          <a href="#portfolio" class="inline-flex items-center gap-2 text-sm font-medium text-brand-muted hover:text-brand-dark transition-colors group">
+            View Work
+            <i data-lucide="arrow-down" class="w-4 h-4 group-hover:translate-y-0.5 transition-transform"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Featured Image -->
+      <div class="lg:col-span-7 order-1 lg:order-2 animate-fade-in-up delay-2">
+        <div class="relative">
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-200">
+            <img src="https://picsum.photos/seed/hero-featured/1400/1050.jpg" alt="Featured work" class="w-full h-full object-cover">
+          </div>
+          <!-- Floating label -->
+          <div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 shadow-lg">
+            <p class="text-[10px] uppercase tracking-[0.15em] font-semibold text-brand-muted mb-0.5">Featured Project</p>
+            <p class="text-sm font-heading text-brand-dark">Lumière — Brand System</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="hidden lg:flex justify-center mt-16 animate-fade-in-up delay-5">
+      <div class="scroll-indicator flex flex-col items-center gap-2 text-brand-muted">
+        <span class="text-[10px] uppercase tracking-[0.2em] font-medium">Scroll</span>
+        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- PORTFOLIO GRID                          -->
+<!-- ═══════════════════════════════════════ -->
+<section id="portfolio" class="px-6 md:px-10 py-24 md:py-32 section-reveal">
+  <div class="max-w-[1400px] mx-auto">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 md:mb-16">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-muted mb-3">Selected Work</p>
+        <h2 class="font-heading text-[32px] sm:text-[40px] lg:text-[52px] font-400 leading-tight tracking-tight">Portfolio</h2>
+      </div>
+      
+      <!-- Filter Tabs -->
+      <div class="flex gap-2 mt-6 sm:mt-0" id="filter-tabs">
+        <button class="filter-btn active px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border transition-all bg-brand-dark text-white border-brand-dark" data-filter="all">All</button>
+        <button class="filter-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-zinc-300 text-brand-muted hover:border-brand-dark hover:text-brand-dark transition-all" data-filter="brand">Brand</button>
+        <button class="filter-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-zinc-300 text-brand-muted hover:border-brand-dark hover:text-brand-dark transition-all" data-filter="editorial">Editorial</button>
+        <button class="filter-btn px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-zinc-300 text-brand-muted hover:border-brand-dark hover:text-brand-dark transition-all" data-filter="art">Art</button>
+      </div>
+    </div>
+
+    <!-- Portfolio Grid -->
+    <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 stagger-in">
+      
+      <!-- Artwork 1 -->
+      <div class="artwork-card cursor-pointer group" data-category="brand" data-title="Lumière — Brand System" data-desc="Complete brand identity for a contemporary lighting studio. The system draws from interplay of light and shadow, using warm neutrals and sharp geometric forms." data-tags="Brand Identity,Visual System,Typography" data-img="https://picsum.photos/seed/work-lumiere/800/600.jpg" data-year="2024">
+        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200 relative">
+          <img src="https://picsum.photos/seed/work-lumiere/800/600.jpg" alt="Lumière" class="artwork-img w-full h-full object-cover">
+          <div class="artwork-overlay absolute inset-0 bg-black/40 backdrop-blur-[4px] flex items-center justify-center">
+            <span class="text-white text-sm font-medium tracking-wide flex items-center gap-2">
+              View Project <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </span>
+          </div>
+        </div>
+        <div class="mt-3 px-1">
+          <h3 class="font-heading text-lg text-brand-dark">Lumière</h3>
+          <p class="text-xs text-brand-muted mt-0.5">Brand Identity — 2024</p>
+        </div>
+      </div>
+
+      <!-- Artwork 2 -->
+      <div class="artwork-card cursor-pointer group" data-category="editorial" data-title="Mono Journal — Issue 07" data-desc="Editorial design for a quarterly arts publication. Focused on restrained typography and generous whitespace to let the photography breathe." data-tags="Editorial,Typography,Print" data-img="https://picsum.photos/seed/work-mono/800/600.jpg" data-year="2024">
+        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200 relative">
+          <img src="https://picsum.photos/seed/work-mono/800/600.jpg" alt="Mono Journal" class="artwork-img w-full h-full object-cover">
+          <div class="artwork-overlay absolute inset-0 bg-black/40 backdrop-blur-[4px] flex items-center justify-center">
+            <span class="text-white text-sm font-medium tracking-wide flex items-center gap-2">
+              View Project <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </span>
+          </div>
+        </div>
+        <div class="mt-3 px-1">
+          <h3 class="font-heading text-lg text-brand-dark">Mono Journal</h3>
+          <p class="text-xs text-brand-muted mt-0.5">Editorial Design — 2024</p>
+        </div>
+      </div>
+
+      <!-- Artwork 3 -->
+      <div class="artwork-card cursor-pointer group" data-category="art" data-title="Chromatic Fields" data-desc="A personal exploration series combining generative algorithms with hand-painted textures. Each piece is a unique interplay of digital precision and organic imperfection." data-tags="Generative Art,Mixed Media,Visual" data-img="https://picsum.photos/seed/work-chroma/800/600.jpg" data-year="2024">
+        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200 relative">
+          <img src="https://picsum.photos/seed/work-chroma/800/600.jpg" alt="Chromatic Fields" class="artwork-img w-full h-full object-cover">
+          <div class="artwork-overlay absolute inset-0 bg-black/40 backdrop-blur-[4px] flex items-center justify-center">
+            <span class="text-white text-sm font-medium tracking-wide flex items-center gap-2">
+              View Project <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </span>
+          </div>
+        </div>
+        <div class="mt-3 px-1">
+          <h3 class="font-heading text-lg text-brand-dark">Chromatic Fields</h3>
+          <p class="text-xs text-brand-muted mt-0.5">Generative Art — 2024</p>
+        </div>
+      </div>
+
+      <!-- Artwork 4 -->
+      <div class="artwork-card cursor-pointer group" data-category="brand" data-title="Aura Wellness" data-desc="Visual identity and packaging system for a holistic wellness brand. Soft earth tones paired with minimalist typography create a sense of calm sophistication." data-tags="Brand Identity,Packaging,Art Direction" data-img="https://picsum.photos/seed/work-aura/800/600.jpg" data-year="2023">
+        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200 relative">
+          <img src="https://picsum.photos/seed/work-aura/800/600.jpg" alt="Aura Wellness" class="artwork-img w-full h-full object-cover">
+          <div class="artwork-overlay absolute inset-0 bg-black/40 backdrop-blur-[4px] flex items-center justify-center">
+            <span class="text-white text-sm font-medium tracking-wide flex items-center gap-2">
+              View Project <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </span>
+          </div>
+        </div>
+        <div class="mt-3 px-1">
+          <h3 class="font-heading text-lg text-brand-dark">Aura Wellness</h3>
+          <p class="text-xs text-brand-muted mt-0.5">Brand Identity — 2023</p>
+        </div>
+      </div>
+
+      <!-- Artwork 5 -->
+      <div class="artwork-card cursor-pointer group" data-category="editorial" data-title="Archetype Zine" data-desc="A limited-run zine exploring the intersection of architecture and graphic design. Bold typography and stark contrasts reflect the brutalist inspiration behind the work." data-tags="Editorial,Zine,Typography" data-img="https://picsum.photos/seed/work-archetype/800/600.jpg" data-year="2023">
+        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200 relative">
+          <img src="https://picsum.photos/seed/work-archetype/800/600.jpg" alt="Archetype Zine" class="artwork-img w-full h-full object-cover">
+          <div class="artwork-overlay absolute inset-0 bg-black/40 backdrop-blur-[4px] flex items-center justify-center">
+            <span class="text-white text-sm font-medium tracking-wide flex items-center gap-2">
+              View Project <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </span>
+          </div>
+        </div>
+        <div class="mt-3 px-1">
+          <h3 class="font-heading text-lg text-brand-dark">Archetype Zine</h3>
+          <p class="text-xs text-brand-muted mt-0.5">Editorial — 2023</p>
+        </div>
+      </div>
+
+      <!-- Artwork 6 -->
+      <div class="artwork-card cursor-pointer group" data-category="art" data-title="Still Life Studies" data-desc="A series of digital paintings exploring composition, color, and light through the classic tradition of still life, reimagined with contemporary digital techniques." data-tags="Digital Art,Painting,Still Life" data-img="https://picsum.photos/seed/work-still/800/600.jpg" data-year="2023">
+        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-zinc-200 relative">
+          <img src="https://picsum.photos/seed/work-still/800/600.jpg" alt="Still Life Studies" class="artwork-img w-full h-full object-cover">
+          <div class="artwork-overlay absolute inset-0 bg-black/40 backdrop-blur-[4px] flex items-center justify-center">
+            <span class="text-white text-sm font-medium tracking-wide flex items-center gap-2">
+              View Project <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </span>
+          </div>
+        </div>
+        <div class="mt-3 px-1">
+          <h3 class="font-heading text-lg text-brand-dark">Still Life Studies</h3>
+          <p class="text-xs text-brand-muted mt-0.5">Digital Art — 2023</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- ARTWORK DETAIL MODAL                    -->
+<!-- ═══════════════════════════════════════ -->
+<div id="artwork-modal" class="fixed inset-0 z-[100] modal-hidden">
+  <div class="modal-backdrop absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+  <div class="modal-content absolute inset-4 sm:inset-8 md:inset-12 lg:inset-16 bg-white rounded-2xl overflow-hidden flex flex-col md:flex-row shadow-2xl">
+    
+    <!-- Image Side -->
+    <div class="md:w-[55%] bg-zinc-100 flex-shrink-0">
+      <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+    </div>
+
+    <!-- Details Side -->
+    <div class="md:w-[45%] p-6 sm:p-8 md:p-10 lg:p-12 overflow-y-auto flex flex-col">
+      <div class="flex justify-between items-start mb-8">
+        <div>
+          <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-brand-muted mb-2">Project Details</p>
+          <h2 id="modal-title" class="font-heading text-2xl sm:text-3xl text-brand-dark leading-tight"></h2>
+        </div>
+        <button onclick="closeModal()" class="p-2 rounded-full hover:bg-zinc-100 transition-colors text-brand-muted hover:text-brand-dark flex-shrink-0">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <p id="modal-desc" class="text-[15px] leading-relaxed text-brand-muted mb-8"></p>
+
+      <div class="mb-8">
+        <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-brand-muted mb-3">Tags</p>
+        <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+      </div>
+
+      <div class="mt-auto pt-6 border-t border-zinc-200">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-brand-muted mb-1">Year</p>
+            <p id="modal-year" class="text-sm font-heading text-brand-dark"></p>
+          </div>
+          <a href="#" class="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-dark text-white text-sm font-medium rounded-full hover:bg-black transition-colors">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            Full Case Study
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- PROCESS / TIMELINE                      -->
+<!-- ═══════════════════════════════════════ -->
+<section id="process" class="px-6 md:px-10 py-24 md:py-32 section-reveal">
+  <div class="max-w-[1400px] mx-auto">
+    
+    <div class="text-center mb-16 md:mb-20">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-muted mb-3">How I Work</p>
+      <h2 class="font-heading text-[32px] sm:text-[40px] lg:text-[52px] font-400 leading-tight tracking-tight">Process</h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+      
+      <!-- Timeline -->
+      <div class="lg:col-span-7">
+        <div class="relative pl-8 md:pl-10">
+          <!-- Vertical Line -->
+          <div class="absolute left-0 top-2 bottom-2 w-px bg-zinc-300">
+            <div class="timeline-line w-full bg-brand-dark" style="height:0;"></div>
+          </div>
+
+          <!-- Step 1 -->
+          <div class="relative mb-12 md:mb-16">
+            <div class="absolute -left-8 md:-left-10 top-1 w-2.5 h-2.5 rounded-full bg-brand-dark border-4 border-[#F5F5F5] -translate-x-1/2"></div>
+            <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-zinc-100">
+              <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-muted">Phase 01</span>
+              <h3 class="font-heading text-xl md:text-2xl text-brand-dark mt-2 mb-3">Discovery & Research</h3>
+              <p class="text-[14px] leading-relaxed text-brand-muted">
+                Every project begins with deep listening. I research the brand, audience, competitors, 
+                and cultural context. This phase shapes the strategic foundation — understanding the "why" 
+                before exploring the "how."
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="relative mb-12 md:mb-16">
+            <div class="absolute -left-8 md:-left-10 top-1 w-2.5 h-2.5 rounded-full bg-brand-dark border-4 border-[#F5F5F5] -translate-x-1/2"></div>
+            <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-zinc-100">
+              <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-muted">Phase 02</span>
+              <h3 class="font-heading text-xl md:text-2xl text-brand-dark mt-2 mb-3">Concept & Exploration</h3>
+              <p class="text-[14px] leading-relaxed text-brand-muted">
+                With strategy as the guide, I explore visual directions through mood boards, 
+                rough sketches, and typographic experiments. Multiple concepts are developed — 
+                each telling a different story.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="relative mb-12 md:mb-16">
+            <div class="absolute -left-8 md:-left-10 top-1 w-2.5 h-2.5 rounded-full bg-brand-dark border-4 border-[#F5F5F5] -translate-x-1/2"></div>
+            <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-zinc-100">
+              <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-muted">Phase 03</span>
+              <h3 class="font-heading text-xl md:text-2xl text-brand-dark mt-2 mb-3">Design & Refine</h3>
+              <p class="text-[14px] leading-relaxed text-brand-muted">
+                The chosen concept is refined with meticulous attention to detail — every pixel, 
+                curve, and color choice is deliberate. Iteration through feedback ensures 
+                the design evolves toward perfection.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="relative">
+            <div class="absolute -left-8 md:-left-10 top-1 w-2.5 h-2.5 rounded-full bg-brand-dark border-4 border-[#F5F5F5] -translate-x-1/2"></div>
+            <div class="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-zinc-100">
+              <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-muted">Phase 04</span>
+              <h3 class="font-heading text-xl md:text-2xl text-brand-dark mt-2 mb-3">Deliver & Launch</h3>
+              <p class="text-[14px] leading-relaxed text-brand-muted">
+                Final assets are delivered with comprehensive brand guidelines, ensuring 
+                consistent application across all touchpoints. I remain available through 
+                the launch phase and beyond.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools / Skills -->
+      <div class="lg:col-span-5">
+        <div class="bg-white rounded-2xl p-8 md:p-10 shadow-sm border border-zinc-100 sticky top-28">
+          <h3 class="font-heading text-2xl text-brand-dark mb-6">Tools & Skills</h3>
+          
+          <div class="space-y-5">
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm font-medium text-brand-dark">Brand Identity</span>
+                <span class="text-xs text-brand-muted">95%</span>
+              </div>
+              <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                <div class="h-full bg-brand-dark rounded-full" style="width: 95%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm font-medium text-brand-dark">Typography</span>
+                <span class="text-xs text-brand-muted">92%</span>
+              </div>
+              <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                <div class="h-full bg-brand-dark rounded-full" style="width: 92%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm font-medium text-brand-dark">Editorial Design</span>
+                <span class="text-xs text-brand-muted">88%</span>
+              </div>
+              <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                <div class="h-full bg-brand-dark rounded-full" style="width: 88%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm font-medium text-brand-dark">Motion Design</span>
+                <span class="text-xs text-brand-muted">78%</span>
+              </div>
+              <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                <div class="h-full bg-brand-dark rounded-full" style="width: 78%;"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm font-medium text-brand-dark">Illustration</span>
+                <span class="text-xs text-brand-muted">85%</span>
+              </div>
+              <div class="h-1.5 bg-zinc-100 rounded-full overflow-hidden">
+                <div class="h-full bg-brand-dark rounded-full" style="width: 85%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-zinc-100">
+            <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-brand-muted mb-4">Software</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 text-xs font-medium bg-zinc-100 rounded-lg text-brand-dark">Figma</span>
+              <span class="px-3 py-1.5 text-xs font-medium bg-zinc-100 rounded-lg text-brand-dark">Photoshop</span>
+              <span class="px-3 py-1.5 text-xs font-medium bg-zinc-100 rounded-lg text-brand-dark">Illustrator</span>
+              <span class="px-3 py-1.5 text-xs font-medium bg-zinc-100 rounded-lg text-brand-dark">InDesign</span>
+              <span class="px-3 py-1.5 text-xs font-medium bg-zinc-100 rounded-lg text-brand-dark">After Effects</span>
+              <span class="px-3 py-1.5 text-xs font-medium bg-zinc-100 rounded-lg text-brand-dark">Blender</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TESTIMONIAL / QUOTE                     -->
+<!-- ═══════════════════════════════════════ -->
+<section class="px-6 md:px-10 py-20 section-reveal">
+  <div class="max-w-[1000px] mx-auto text-center">
+    <i data-lucide="quote" class="w-10 h-10 text-zinc-200 mx-auto mb-8"></i>
+    <blockquote class="font-heading text-[24px] sm:text-[30px] lg:text-[36px] leading-snug text-brand-dark mb-6 italic">
+      "Elena's work transcends mere aesthetics — she creates visual systems that carry 
+      meaning, emotion, and lasting impact."
+    </blockquote>
+    <div class="flex items-center justify-center gap-3">
+      <img src="https://picsum.photos/seed/client-avatar/80/80.jpg" alt="Client" class="w-10 h-10 rounded-full object-cover">
+      <div class="text-left">
+        <p class="text-sm font-medium text-brand-dark">Marcus Behrens</p>
+        <p class="text-xs text-brand-muted">Creative Director, Studio Haiku</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CONTACT SECTION                         -->
+<!-- ═══════════════════════════════════════ -->
+<section id="contact" class="px-6 md:px-10 py-24 md:py-32 section-reveal">
+  <div class="max-w-[1400px] mx-auto">
+    <div class="bg-brand-dark rounded-2xl md:rounded-3xl overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2">
+        
+        <!-- Left: CTA -->
+        <div class="p-8 sm:p-12 md:p-16 lg:p-20 flex flex-col justify-center">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400 mb-4">Let's Collaborate</p>
+          <h2 class="font-heading text-[36px] sm:text-[44px] lg:text-[56px] font-400 leading-[1.05] tracking-tight text-white mb-6">
+            Have a project<br>in mind?
+          </h2>
+          <p class="text-[15px] leading-relaxed text-zinc-400 max-w-md mb-10">
+            I'm always open to discussing new projects, creative ideas, or opportunities to be 
+            part of your vision. Let's create something extraordinary together.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="mailto:hello@elenavoss.com" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-brand-dark text-sm font-medium rounded-full hover:bg-zinc-100 transition-colors">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+              hello@elenavoss.com
+            </a>
+            <a href="#" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 border border-zinc-600 text-white text-sm font-medium rounded-full hover:border-zinc-400 transition-colors">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              Download CV
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Contact Form -->
+        <div class="p-8 sm:p-12 md:p-16 lg:p-20 bg-white/5">
+          <form id="contact-form" class="space-y-5">
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-400 mb-2">Name</label>
+              <input type="text" placeholder="Your name" class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white/30 transition-colors">
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-400 mb-2">Email</label>
+              <input type="email" placeholder="your@email.com" class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white/30 transition-colors">
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-400 mb-2">Project Type</label>
+              <select class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-zinc-400 focus:outline-none focus:border-white/30 transition-colors appearance-none cursor-pointer">
+                <option>Brand Identity</option>
+                <option>Editorial Design</option>
+                <option>Visual Art / Illustration</option>
+                <option>Art Direction</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-[0.2em] font-semibold text-zinc-400 mb-2">Message</label>
+              <textarea rows="4" placeholder="Tell me about your project..." class="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-white/30 transition-colors resize-none"></textarea>
+            </div>
+            <button type="submit" class="w-full py-3.5 bg-white text-brand-dark text-sm font-medium rounded-xl hover:bg-zinc-100 transition-colors flex items-center justify-center gap-2">
+              Send Message
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+            <div id="form-success" class="hidden text-center py-3 px-4 bg-emerald-500/10 rounded-xl border border-emerald-500/20">
+              <p class="text-sm text-emerald-400 flex items-center justify-center gap-2">
+                <i data-lucide="check-circle" class="w-4 h-4"></i>
+                Message sent! I'll get back to you soon.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FOOTER                                  -->
+<!-- ═══════════════════════════════════════ -->
+<footer class="px-6 md:px-10 py-12 md:py-16 border-t border-zinc-200">
+  <div class="max-w-[1400px] mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+      
+      <div>
+        <a href="#hero" class="font-heading text-2xl text-brand-dark">Elena Voss</a>
+        <p class="text-xs text-brand-muted mt-1">Designer & Visual Artist — Amsterdam</p>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <a href="#" class="text-brand-muted hover:text-brand-dark transition-colors" aria-label="Instagram">
+          <i data-lucide="instagram" class="w-5 h-5"></i>
+        </a>
+        <a href="#" class="text-brand-muted hover:text-brand-dark transition-colors" aria-label="Dribbble">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"/></svg>
+        </a>
+        <a href="#" class="text-brand-muted hover:text-brand-dark transition-colors" aria-label="Behance">
+          <i data-lucide="figma" class="w-5 h-5"></i>
+        </a>
+        <a href="#" class="text-brand-muted hover:text-brand-dark transition-colors" aria-label="LinkedIn">
+          <i data-lucide="linkedin" class="w-5 h-5"></i>
+        </a>
+        <a href="#" class="text-brand-muted hover:text-brand-dark transition-colors" aria-label="Twitter / X">
+          <i data-lucide="twitter" class="w-5 h-5"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-zinc-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-xs text-brand-muted">© 2024 Elena Voss. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="#" class="text-xs text-brand-muted hover:text-brand-dark transition-colors">Privacy</a>
+        <a href="#" class="text-xs text-brand-muted hover:text-brand-dark transition-colors">Terms</a>
+        <a href="#" class="text-xs text-brand-muted hover:text-brand-dark transition-colors">Colophon</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SCRIPTS                                 -->
+<!-- ═══════════════════════════════════════ -->
+<script>
+// Initialize Lucide Icons
+lucide.createIcons();
+
+// ——————————————————————————————
+// Mobile Menu Toggle
+// ——————————————————————————————
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+let menuOpen = false;
+
+mobileMenuBtn.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  if (menuOpen) {
+    mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+  } else {
+    mobileMenu.style.maxHeight = '0';
+  }
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    menuOpen = false;
+    mobileMenu.style.maxHeight = '0';
+  });
+});
+
+// ——————————————————————————————
+// Navbar scroll effect
+// ——————————————————————————————
+const navbar = document.getElementById('navbar');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll > 80) {
+    navbar.style.boxShadow = '0 1px 20px rgba(0,0,0,0.06)';
+  } else {
+    navbar.style.boxShadow = 'none';
+  }
+  lastScroll = currentScroll;
+});
+
+// ——————————————————————————————
+// Portfolio Filter
+// ——————————————————————————————
+const filterBtns = document.querySelectorAll('.filter-btn');
+const artworkCards = document.querySelectorAll('.artwork-card');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Update active button
+    filterBtns.forEach(b => {
+      b.classList.remove('bg-brand-dark', 'text-white', 'border-brand-dark', 'active');
+      b.classList.add('border-zinc-300', 'text-brand-muted');
+    });
+    btn.classList.add('bg-brand-dark', 'text-white', 'border-brand-dark', 'active');
+    btn.classList.remove('border-zinc-300', 'text-brand-muted');
+
+    const filter = btn.dataset.filter;
+
+    artworkCards.forEach(card => {
+      const category = card.dataset.category;
+      if (filter === 'all' || category === filter) {
+        card.style.display = '';
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(15px)';
+        requestAnimationFrame(() => {
+          card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+        });
+      } else {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(10px)';
+        setTimeout(() => {
+          card.style.display = 'none';
+        }, 300);
+      }
+    });
+  });
+});
+
+// ——————————————————————————————
+// Artwork Modal
+// ——————————————————————————————
+const modal = document.getElementById('artwork-modal');
+const modalImg = document.getElementById('modal-img');
+const modalTitle = document.getElementById('modal-title');
+const modalDesc = document.getElementById('modal-desc');
+const modalTags = document.getElementById('modal-tags');
+const modalYear = document.getElementById('modal-year');
+
+artworkCards.forEach(card => {
+  card.addEventListener('click', () => {
+    modalImg.src = card.dataset.img;
+    modalImg.alt = card.dataset.title;
+    modalTitle.textContent = card.dataset.title;
+    modalDesc.textContent = card.dataset.desc;
+    modalYear.textContent = card.dataset.year;
+
+    // Tags
+    const tags = card.dataset.tags.split(',');
+    modalTags.innerHTML = '';
+    tags.forEach(tag => {
+      const span = document.createElement('span');
+      span.className = 'tag-pill cursor-pointer px-3 py-1.5 text-xs font-medium tracking-wide border border-zinc-300 rounded-full text-brand-dark bg-white';
+      span.textContent = tag.trim();
+      modalTags.appendChild(span);
+    });
+
+    // Show modal
+    modal.classList.remove('modal-hidden');
+    modal.classList.add('modal-visible');
+    document.body.style.overflow = 'hidden';
+
+    // Re-init icons inside modal
+    setTimeout(() => lucide.createIcons(), 50);
+  });
+});
+
+function closeModal() {
+  modal.classList.remove('modal-visible');
+  modal.classList.add('modal-hidden');
+  document.body.style.overflow = '';
+}
+
+// Close modal on Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ——————————————————————————————
+// Contact Form
+// ——————————————————————————————
+document.getElementById('contact-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const successMsg = document.getElementById('form-success');
+  successMsg.classList.remove('hidden');
+  lucide.createIcons();
+  
+  // Reset form
+  e.target.querySelectorAll('input, textarea').forEach(el => el.value = '');
+  
+  // Hide success after 4 seconds
+  setTimeout(() => {
+    successMsg.classList.add('hidden');
+  }, 4000);
+});
+
+// ——————————————————————————————
+// Scroll Reveal
+// ——————————————————————————————
+const revealSections = document.querySelectorAll('.section-reveal');
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -60px 0px'
+});
+
+revealSections.forEach(section => {
+  revealObserver.observe(section);
+});
+
+// ——————————————————————————————
+// Timeline line animation trigger
+// ——————————————————————————————
+const timelineLine = document.querySelector('.timeline-line');
+if (timelineLine) {
+  const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        timelineLine.style.animation = 'drawLine 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards';
+        timelineObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  timelineObserver.observe(timelineLine.parentElement);
+}
+</script>
+
+</body>
+</html>
